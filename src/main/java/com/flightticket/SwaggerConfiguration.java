@@ -21,22 +21,22 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 
 @Configuration
 public class SwaggerConfiguration {
-	private static final String BASIC_AUTH = "basicAuth";
+	//private static final String BASIC_AUTH = "basicAuth";
 	@Bean  //Bean - Indicates that a method produces a bean to be managed by the Spring container. 
   //Docket - A builder which is intended to be the primary interface into the Springfox framework
   public Docket api(){
-		 HttpAuthenticationScheme authenticationScheme = HttpAuthenticationScheme
-		            .BASIC_AUTH_BUILDER
-		            .name("Basic Authentication")
-		            .build();
+// 		 HttpAuthenticationScheme authenticationScheme = HttpAuthenticationScheme
+// 		            .BASIC_AUTH_BUILDER
+// 		            .name("Basic Authentication")
+// 		            .build();
 		 
       return new Docket(DocumentationType.OAS_30)
               .select()
               .apis(RequestHandlerSelectors.basePackage("com.flightticket"))
               .paths(PathSelectors.any())
-              .build().apiInfo(apiEndPointInfo())
-              .securitySchemes(Collections.singletonList(authenticationScheme))
-              .securityContexts(List.of(securityContext()));
+              .build().apiInfo(apiEndPointInfo());
+             // .securitySchemes(Collections.singletonList(authenticationScheme))
+             // .securityContexts(List.of(securityContext()));
   }
  
 	public ApiInfo apiEndPointInfo(){
@@ -49,16 +49,16 @@ public class SwaggerConfiguration {
               .build();
   }
 	
-	@SuppressWarnings("unused")
-	private List<SecurityScheme> securitySchemes() {
-     return List.of(new BasicAuth(BASIC_AUTH));
- }
+// 	@SuppressWarnings("unused")
+// 	private List<SecurityScheme> securitySchemes() {
+//      return List.of(new BasicAuth(BASIC_AUTH));
+//  }
 //	A class to represent a default set of authorizations to apply to each api operation
- private SecurityContext securityContext() {
-     return SecurityContext.builder().securityReferences(Arrays.asList(basicAuthReference())).build();
- }
+//  private SecurityContext securityContext() {
+//      return SecurityContext.builder().securityReferences(Arrays.asList(basicAuthReference())).build();
+//  }
  
- private SecurityReference basicAuthReference() {
-     return new SecurityReference(BASIC_AUTH, new AuthorizationScope[0]);
- }
+//  private SecurityReference basicAuthReference() {
+//      return new SecurityReference(BASIC_AUTH, new AuthorizationScope[0]);
+//  }
 }
