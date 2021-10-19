@@ -31,11 +31,12 @@ public class FlightController {
     BookingService bookingService;
     
     @PostMapping("/stockflight/add/")
+	@ResponseStatus(HttpStatus.OK)
     public Flight saveFlight(@Valid @RequestBody Flight flight) {
     	return flightService.saveFlight(flight);
     }
     
-    @GetMapping("/airline/info/allfights")
+    @GetMapping("/airline/info/allflights")
     public List<Flight> getAllFlights() {
     	return flightService.getAllFlights();
     }
@@ -46,12 +47,18 @@ public class FlightController {
     }
     
     @PostMapping("/booking/register")
+	@ResponseStatus(HttpStatus.OK)
     public Booking saveBooking(@Valid @RequestBody Booking booking) {
     	return bookingService.saveBooking(booking);
     }
     
     @DeleteMapping("/airline/delete/{flightNumber}")
-    public void deleteFlightRoute(@PathVariable String flightNumber) {
-    	flightService.deleteFlightRoute(flightNumber);
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> deleteFlightRoute(@PathVariable String flightNumber) {
+    	boolean flag = flightService.deleteFlightRoute(flightNumber);
+		if(flag)
+			return new ResponseEntity<String>("FlightRoute deleted successfully",HttpStatus.OK);
+		else
+			return new ResponseEntity<String>("FlightRoute not deleted",HttpStatus.BAD_REQUEST);
     }
 }
