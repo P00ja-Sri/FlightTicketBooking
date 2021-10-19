@@ -13,5 +13,5 @@ public interface FlightService {
     public Flight saveFlight(Flight flight);
     public boolean deleteFlightById(long flightId);
     public List<Flight> getAllFlightsByAirportAndDepartureTime(Airport depAirport, Airport destAirport, LocalDate depDate);
-    public void deleteFlightRoute(String flightNumber);
+    public boolean deleteFlightRoute(String flightNumber);
 }
