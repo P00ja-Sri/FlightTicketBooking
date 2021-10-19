@@ -51,7 +51,8 @@ public class FlightServiceImpl implements FlightService {
     }
     
     @Override
-    public void deleteFlightRoute(String flightNumber) {
+    public boolean deleteFlightRoute(String flightNumber) {
     	flightRepository.deleteByFlightNumber(flightNumber);
+	    return true;
     }
 }
